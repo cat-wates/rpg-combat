@@ -8,13 +8,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PlayerTest {
 
     @Test
-    public void shouldReduceCharacterHealthFromDamage() {
+    public void shouldReduceCharacterHealthFromDamageWhenCharacterLevelsAreTheSame() {
 //        Given
         Player player1 = new Player();
 //        When
         player1.takeDamage(50);
 //        Then
-        assertThat(player1.health).isEqualTo(950);
+        assertThat(player1.getHealth()).isEqualTo(950);
     }
 
     @Test
@@ -24,9 +24,11 @@ class PlayerTest {
 //        When
         player1.takeDamage(1001);
 //        Then
-        assertThat(player1.health).isEqualTo(0);
-        assertThat(player1.isAlive).isFalse();
+        assertThat(player1.getHealth()).isEqualTo(0);
+        assertThat(player1.isAlive()).isFalse();
     }
+
+
 
     @Test
     public void shouldHealIfPlayerIsAliveAndHealthIsLessThan1000() {
@@ -36,8 +38,8 @@ class PlayerTest {
         player1.takeDamage(30);
         player1.heal();
 //        Then
-        assertThat(player1.health).isEqualTo(1000);
-        assertThat(player1.isAlive).isTrue();
+        assertThat(player1.getHealth()).isEqualTo(1000);
+        assertThat(player1.isAlive()).isTrue();
     }
 
     @Test
@@ -48,8 +50,8 @@ class PlayerTest {
         player1.takeDamage(1001);
         player1.heal();
 //        Then
-        assertThat(player1.health).isEqualTo(0);
-        assertThat(player1.isAlive).isFalse();
+        assertThat(player1.getHealth()).isEqualTo(0);
+        assertThat(player1.isAlive()).isFalse();
     }
 
     @Test
@@ -59,8 +61,13 @@ class PlayerTest {
 //        When
         player1.heal();
 //        Then
-        assertThat(player1.health).isEqualTo(1000);
-        assertThat(player1.isAlive).isTrue();
+        assertThat(player1.getHealth()).isEqualTo(1000);
+        assertThat(player1.isAlive()).isTrue();
+    }
+
+    @Test
+    public void shouldDefineHowMuchDamageIsDealtBasedOnPlayer1LevelAndPlayer2Level() {
+
     }
 
 }

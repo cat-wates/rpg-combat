@@ -2,14 +2,17 @@ package org.rpgcombat;
 
 public class Player {
 
-    int health = 1000;
-    int level = 1;
-    boolean isAlive = true;
+    private double health = 1000;
+    private int level = 1;
+    private boolean isAlive = true;
 
-//    public int giveDamage() {
-//        int damage;
-//
-//    }
+    public Player() {
+
+    }
+
+    public Player(int level) {
+        this.level = level;
+    }
 
     public void takeDamage(int damage) {
         if (health - damage < 0) {
@@ -25,5 +28,17 @@ public class Player {
         if (isAlive && health < 1000) {
             health = 1000;
         }
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
     }
 }

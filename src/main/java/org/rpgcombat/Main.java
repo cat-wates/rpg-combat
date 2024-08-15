@@ -2,6 +2,7 @@ package org.rpgcombat;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Player player1 = new Player();
+        Player player2 = new Player();
     }
 }
