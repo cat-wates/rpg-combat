@@ -1,17 +1,20 @@
 package org.rpgcombat;
 
-public class Player {
+public class Character {
 
     private double health = 1000;
     private int level = 1;
     private boolean isAlive = true;
+    private int maxRange = 1;
+    private int location;
 
-    public Player() {
+    public Character() {
 
     }
 
-    public Player(int level) {
-        this.level = level;
+    public Character(int maxRange, int location) {
+        this.maxRange = maxRange;
+        this.location = location;
     }
 
     public void takeDamage(int damage) {
@@ -30,6 +33,10 @@ public class Player {
         }
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public double getHealth() {
         return health;
     }
@@ -41,4 +48,10 @@ public class Player {
     public boolean isAlive() {
         return isAlive;
     }
+
+    public int getMaxRange() {
+        return maxRange;
+    }
+
+    public int getLocation() { return location; }
 }

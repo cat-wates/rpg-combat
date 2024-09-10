@@ -2,7 +2,7 @@ package org.rpgcombat;
 
 public class Main {
     public static void main(String[] args) {
-        Player player1 = new Player();
-        Player player2 = new Player();
+        Character character1 = new Character();
+        Character character2 = new Character();
     }
 }

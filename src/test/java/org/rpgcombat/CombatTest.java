@@ -11,32 +11,34 @@ class CombatTest {
     @Test
     public void shouldDealDamageToOpponent() {
 //        Given
-        Player player1 = new Player();
-        Player player2 = new Player();
+        Character character1 = new Character();
+        Character character2 = new Character();
 //        when
-        Combat combat = new Combat(player1);
-        combat.attack(player2);
+        Combat combat = new Combat(character1);
+        combat.attack(character2);
 //        then
-        assertThat(player2.getHealth()).isEqualTo(950);
+        assertThat(character2.getHealth()).isEqualTo(950);
     }
 
     @Test
     public void shouldEnsurePlayerCannotAttackItself() {
 //        Given
-        Player player2 = new Player();
+        Character character2 = new Character();
 //        when
-        Combat combat = new Combat(player2);
+        Combat combat = new Combat(character2);
 //        then
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            combat.attack(player2);
+            combat.attack(character2);
         }).withMessageMatching("A player cannot deal damage to itself!");
     }
 
     @Test
     public void shouldIncreaseDamageWhenAttackerLevelIs5LevelsOrMoreAboveDefenderLevel() {
 //        Given
-        Player attacker = new Player(6);
-        Player defender = new Player();
+        Character attacker = new Character();
+        Character defender = new Character();
+        attacker.setLevel(6);
+        defender.setLevel(1);
 //        When
         Combat combat = new Combat(attacker);
         combat.attack(defender);
@@ -47,12 +49,64 @@ class CombatTest {
     @Test
     public void shouldDecreaseDamageWhenAttackerLevelIs5LevelsOrMoreBelowDefenderLevel() {
 //        Given
-        Player attacker = new Player();
-        Player defender = new Player(6);
+        Character attacker = new Character();
+        Character defender = new Character();
+        attacker.setLevel(1);
+        defender.setLevel(6);
 //        When
         Combat combat = new Combat(attacker);
         combat.attack(defender);
 //        Then
         Assertions.assertThat(defender.getHealth()).isEqualTo(975);
     }
+
+    @Test
+    public void shouldAttackWhenDistanceBetweenCharactersIsPositiveAndInRange() {
+//        Given
+        Character attacker = new Character(5, 24);
+        Character defender = new Character(5, 20);
+//        When
+        Combat combat = new Combat(attacker);
+        combat.attack(defender);
+//        Then
+        assertThat(defender.getHealth()).isEqualTo(950);
+    }
+
+    @Test
+    public void shouldAttackWhenDistanceBetweenCharactersIsNegativeAndInRange() {
+        //        Given
+        Character attacker = new Character(5, 20);
+        Character defender = new Character(5, 24);
+//        When
+        Combat combat = new Combat(attacker);
+        combat.attack(defender);
+//        Then
+        assertThat(defender.getHealth()).isEqualTo(950);
+    }
+
+    @Test
+    public void shouldNotAttackWhenDistanceBetweenCharactersIsPositiveAndNotInRange() {
+        //        Given
+        Character attacker = new Character(5, 26);
+        Character defender = new Character(5, 20);
+//        When
+        Combat combat = new Combat(attacker);
+        combat.attack(defender);
+//        Then
+        assertThat(defender.getHealth()).isEqualTo(1000);
+    }
+
+    @Test
+    public void shouldNotAttackWhenDistanceBetweenCharactersIsNegativeAndNotInRange() {
+        //        Given
+        Character attacker = new Character(5, 20);
+        Character defender = new Character(5, 26);
+//        When
+        Combat combat = new Combat(attacker);
+        combat.attack(defender);
+//        Then
+        assertThat(defender.getHealth()).isEqualTo(1000);
+    }
+
+
 }
